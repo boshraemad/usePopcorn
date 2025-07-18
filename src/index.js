@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+// import Rating from './components/Rating';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* <Rating maxRating={5} color="#F3C623" fontSize={20} defaultRating={3} messages={["bad" ,"meh" , "good" , "very good" , "Excellent"]} /> */}
     <App />
   </React.StrictMode>
 );
