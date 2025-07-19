@@ -1,6 +1,6 @@
 import Loader from "./Loader";
 import Rating from "./Rating";
-import { useState, useEffect } from "react";
+import { useState, useEffect , useRef } from "react";
 import { key } from "../App";
 import { FaStar } from "react-icons/fa6";
 
@@ -8,11 +8,14 @@ export default function MovieDetails({ id, closeMovieDetails , addWatchedMovie ,
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating , setUserRating] = useState(0);
-
+  const countRef=useRef(0);
   const isWatched=watched.map((movie)=>movie.imdbId).includes(id);
   const watchedMovieUserRating=watched.find((movie)=>movie.imdbId === id)?.userRating;
 
-  
+  useEffect(()=>{
+    if(userRating) countRef.current+=1;
+
+  } , [userRating])
   useEffect(() => {
     const fetchMovieDetails = async () => {
       setIsLoading(true);
@@ -65,7 +68,8 @@ export default function MovieDetails({ id, closeMovieDetails , addWatchedMovie ,
         poster,
         imdbRating:Number(imdbRating),
         runtime:Number(runtime.split(" ").at(0)),
-        userRating:userRating
+        userRating:userRating,
+        countRatingDecisions:countRef
     }
     addWatchedMovie(newMovie);
     closeMovieDetails();
