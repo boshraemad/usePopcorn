@@ -1,7 +1,7 @@
 import Loader from "./Loader";
 import Rating from "./Rating";
 import { useState, useEffect , useRef } from "react";
-import { key } from "../App";
+import { key } from "../hooks/useMovies"
 import { FaStar } from "react-icons/fa6";
 
 export default function MovieDetails({ id, closeMovieDetails , addWatchedMovie , watched }) {
