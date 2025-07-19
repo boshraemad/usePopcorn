@@ -15,7 +15,11 @@ export const key="6cac85d9";
 export default function App() {
   const [query, setQuery] = useState("interstellar");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  //get watchedList initial value from localStorage
+  const [watched, setWatched] = useState(()=>{
+    const storedValue=localStorage.getItem("watchList");
+    return JSON.parse(storedValue);
+  });
   const [selectedId,setSelectedId]=useState(null);
   const [isLoading , setIsLoading]=useState(false);
   const [error , setError]=useState("");
@@ -73,6 +77,11 @@ export default function App() {
 
     return ()=>controller.abort()
   },[query])
+
+  //add watched movies to localStorage
+  useEffect(()=>{
+    localStorage.setItem("watchList" , JSON.stringify(watched));
+  },[watched])
 
   return (
     <>
