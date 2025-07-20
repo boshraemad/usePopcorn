@@ -3,6 +3,7 @@ import Rating from "./Rating";
 import { useState, useEffect , useRef } from "react";
 import { key } from "../hooks/useMovies"
 import { FaStar } from "react-icons/fa6";
+import { useKey } from "../hooks/useKey";
 
 export default function MovieDetails({ id, closeMovieDetails , addWatchedMovie , watched }) {
   const [movie, setMovie] = useState({});
@@ -48,17 +49,7 @@ export default function MovieDetails({ id, closeMovieDetails , addWatchedMovie ,
   },[title])
 
   //add keypress eventlistener
-  useEffect(()=>{
-    function callback(e){
-      if(e.code === "Escape"){
-        closeMovieDetails();
-      }
-    }
-      document.addEventListener("keydown", callback);
-
-      return ()=>document.removeEventListener("keydown" , callback);
-
-  },[closeMovieDetails])
+  useKey("escape" , closeMovieDetails);
 
   const handleAddWatchedMovie=()=>{
     const newMovie={
