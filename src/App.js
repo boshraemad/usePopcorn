@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react";
+import { useState } from "react";
 import Nav from "./components/nav";
 import Search from "./components/search";
 import ResultsNumber from "./components/resultsNumber";
@@ -11,17 +11,12 @@ import Loader from "./components/Loader";
 import Error from "./components/Error";
 import MovieDetails from "./components/movieDetails";
 import { useMovies } from "./hooks/useMovies";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
 export default function App() {
   const [query, setQuery] = useState("interstellar");
-
-  //get watchedList initial value from localStorage
-  const [watched, setWatched] = useState(()=>{
-    const storedValue=localStorage.getItem("watchList");
-    return JSON.parse(storedValue);
-  });
   const [selectedId,setSelectedId]=useState(null);
-
+  const [watched , setWatched]=useLocalStorageState([] , "watchList")
 
   //useMovie custom hook
   const {movies , isLoading , error}=useMovies(query)
@@ -44,12 +39,6 @@ export default function App() {
     setWatched((watched)=>watched.filter((movie)=>movie.imdbId !== id))
   }
 
-
-
-  //add watched movies to localStorage
-  useEffect(()=>{
-    localStorage.setItem("watchList" , JSON.stringify(watched));
-  },[watched])
 
   return (
     <>
