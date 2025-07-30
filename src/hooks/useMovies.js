@@ -13,7 +13,7 @@ export function useMovies(query){
           try{
             setIsLoading(true);
             setError("");
-            const response = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=[${query}]` , {signal:controller.signal});
+            const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=${key}&s=[${query}]` , {signal:controller.signal});
             if(!response.ok) throw new Error("something wend wrong while fetching data");
     
             const data = await response.json();
